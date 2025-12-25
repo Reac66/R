@@ -1,33 +1,32 @@
-name: BGMI 24x7 Runner
+name: BGMI Auto Reaction Bot
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
   schedule:
-    - cron: "0 */5 * * *"   # हर 5 घंटे में restart
+    - cron: "0 */5 * * *"
 
 jobs:
-  run-bgmi:
+  bgmi:
     runs-on: ubuntu-latest
-    timeout-minutes: 350   # ~5.8 hours
+    timeout-minutes: 350
 
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
 
-    - name: Set up Python
+    - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: "3.10"
 
     - name: Install dependencies
       run: |
-        if [ -f requirements.txt ]; then
-          pip install -r requirements.txt
-        fi
+        pip install -r requirements.txt
 
-    - name: Run BGMI script
+    - name: Run bot
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       run: |
         python bgmi.py
