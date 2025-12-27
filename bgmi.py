@@ -2,7 +2,6 @@ import random
 from telegram import Update, ReactionTypeEmoji
 from telegram.ext import Application, MessageHandler, ContextTypes, filters
 
-# 🔴 BOT TOKEN (direct)
 BOT_TOKEN = "8592651544:AAF5HrvXcBAFi_BurXmpbYQa2vyUN_ryXAU"
 
 EMOJIS = ["❤️‍🔥", "❤️", "🔥", "💘", "🕊️", "⚡", "👏", "💯", "🍾", "🍌", "👻"]
@@ -28,18 +27,9 @@ async def auto_react(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reacted.add(key)
         print(f"Reacted {emoji} -> {msg.message_id}")
     except Exception as e:
-        print("Reaction failed:", e)
+        print("Reaction error:", e)
 
 def main():
-    app = Application.builder().token(BOT_TOKEN).build()
-    app.add_handler(MessageHandler(filters.ALL, auto_react))
-
-    print("🤖 BGMI Auto Reaction Bot Started")
-    app.run_polling(drop_pending_updates=True)
-
-if __name__ == "__main__":
-    main()        raise ValueError("BOT_TOKEN not set")
-
     app = Application.builder().token(BOT_TOKEN).build()
     app.add_handler(MessageHandler(filters.ALL, auto_react))
 
