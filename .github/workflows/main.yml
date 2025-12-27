@@ -1,19 +1,15 @@
-name: BGMI Auto Reaction Bot
+name: Telegram Bot Runner
 
 on:
   push:
-    branches: [ main ]
   workflow_dispatch:
-  schedule:
-    - cron: "0 */5 * * *"
 
 jobs:
-  bgmi:
+  run-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 350
 
     steps:
-    - name: Checkout repo
+    - name: Checkout Repo
       uses: actions/checkout@v4
 
     - name: Setup Python
@@ -21,10 +17,13 @@ jobs:
       with:
         python-version: "3.10"
 
-    - name: Install telegram library
+    - name: Install Dependencies
       run: |
-        pip install python-telegram-bot==20.7
+        pip install --upgrade pip
+        pip install -r requirements.txt
 
-    - name: Run bot
+    - name: Run Bot
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       run: |
         python bgmi.py
