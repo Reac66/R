@@ -1,5 +1,5 @@
 import random
-from telegram import Update, ReactionTypeEmoji
+from telegram import Update
 from telegram.ext import Application, MessageHandler, ContextTypes, filters
 
 BOT_TOKEN = "8592651544:AAF5HrvXcBAFi_BurXmpbYQa2vyUN_ryXAU"
@@ -22,7 +22,7 @@ async def auto_react(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.set_message_reaction(
             chat_id=msg.chat.id,
             message_id=msg.message_id,
-            reaction=[ReactionTypeEmoji(emoji=emoji)]
+            reaction=[{"type": "emoji", "emoji": emoji}]
         )
         reacted.add(key)
         print(f"Reacted {emoji} -> {msg.message_id}")
