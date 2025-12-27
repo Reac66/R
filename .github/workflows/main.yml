@@ -21,9 +21,9 @@ jobs:
       with:
         python-version: "3.10"
 
-    - name: Install dependencies
+    - name: Install telegram library
       run: |
-        pip install -r requirements.txt
+        pip install python-telegram-bot==20.7
 
     - name: Run bot
       run: |
